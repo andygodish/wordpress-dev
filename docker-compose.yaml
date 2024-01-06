@@ -4,7 +4,10 @@ services:
   web:
     image: wordpress:6.4-php8.1-apache
     restart: always
-    volumes: ['./:/var/www/html/']
+    volumes: [
+      './wp-content:/var/www/html/wp-content',
+      './wordpress:/var/www/html',
+    ]
     depends_on:
       - mysql
     environment:
@@ -43,13 +46,13 @@ services:
     networks:
       - wp-network
 
-  cli:
-    image: wordpress:cli-2.8-php8.0
-    restart: always
-    volumes: ['./:/var/www/html/']  
-    working_dir: /var/www/html
-    networks:
-      - wp-network
+  # cli:
+  #   image: wordpress:cli-2.8-php8.0
+  #   restart: always
+  #   volumes: ['./:/var/www/html/']  
+  #   working_dir: /var/www/html
+  #   networks:
+  #     - wp-network
 
 networks:
   wp-network:
